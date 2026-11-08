@@ -1,0 +1,162 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Gallery.MainWindow"
+        Title="Gallery" Width="1100" Height="850"
+        WindowStartupLocation="CenterScreen"
+        Background="Black">
+
+    <Window.FontFamily>
+        <FontFamily>Montserrat, Segoe UI, sans-serif</FontFamily>
+    </Window.FontFamily>
+
+    <Window.Styles>
+     
+        <Style Selector="Button.nav-btn">
+            <Setter Property="Background" Value="#992A2A2A"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="30,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.nav-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#abababff"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+
+
+        <Style Selector="Button.load-btn">
+            <Setter Property="Background" Value="#bcbcbcff"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.load-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#bcbcbcff"/>
+        </Style>
+
+ 
+        <Style Selector="Button.close-btn">
+            <Setter Property="Background" Value="#552A2A2A"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.close-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#b9b9b9ff"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+
+
+        <Style Selector="TextBlock.info-text">
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="LineHeight" Value="24"/>
+            <Setter Property="FontFamily" Value="Consolas, monospace"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid>
+
+        <Image Source="/Assets/bg.jpg" Stretch="UniformToFill">
+            <Image.Effect>
+                <BlurEffect Radius="15"/>
+            </Image.Effect>
+        </Image>
+        
+    
+        <Border Background="#B3000000"/>
+
+
+        <Grid RowDefinitions="Auto,*,Auto,Auto" Margin="30">
+            
+
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+                <TextBox x:Name="PathsTextBox" 
+                         Watermark="Введіть шляхи до папок (розділяйте знаком @)" 
+                         VerticalAlignment="Center"
+                         Background="#99202020"
+                         Foreground="White"
+                         BorderBrush="#55333333"
+                         CornerRadius="8"
+                         Padding="16,12"
+                         FontSize="14"/>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0" Spacing="10">
+                    <Button Classes="load-btn" Content="Завантажити" Click="OnLoadClick"/>
+                    <Button Classes="close-btn" Content="✕" Click="OnCloseClick" ToolTip.Tip="Закрити програму"/>
+                </StackPanel>
+            </Grid>
+            <Border Grid.Row="1" 
+                    Background="#CC161616" 
+                    CornerRadius="16" 
+                    BoxShadow="0 10 40 0 #B3000000" 
+                    ClipToBounds="True"
+                    BorderBrush="#55333333"
+                    BorderThickness="1">
+                <Grid>
+                   
+                    <StackPanel x:Name="WelcomePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+                        <TextBlock Text="Галерея" Foreground="#b8b8b8ff" FontSize="42" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Введіть шлях до папки з фото та натисніть 'Завантажити'" Foreground="#AAAAAA" FontSize="16" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    
+                   
+                    <Image x:Name="ImageView" Stretch="Uniform" Margin="20"/>
+                </Grid>
+            </Border>
+
+            
+            <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto,*" Margin="0,20,0,20">
+                <Button Grid.Column="1" Classes="nav-btn" Content="Попереднє" Click="OnPreviousClick" Margin="0,0,15,0"/>
+                <Button Grid.Column="2" Classes="nav-btn" Content="Наступне" Click="OnNextClick"/>
+            </Grid>
+
+            
+            <Border Grid.Row="3" 
+                    Background="#CC1A1A1A" 
+                    CornerRadius="12" 
+                    Padding="24" 
+                    BorderBrush="#55333333"
+                    BorderThickness="1"
+                    BoxShadow="0 5 15 0 #80000000">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock x:Name="InfoTextBlock" 
+                               Classes="info-text" 
+                               TextWrapping="Wrap"
+                               Text="Очікування завантаження..."/>
+                    
+                    
+                    <Border Grid.Column="1" Background="#332A2A2A" CornerRadius="15" Padding="15,5" VerticalAlignment="Top">
+                        <TextBlock x:Name="CounterTextBlock" Foreground="#adadadff" FontWeight="Bold" Text="0 / 0"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
+
+git config --global user.name "kira"
+git config --global user.email kira310388@gmail.com
